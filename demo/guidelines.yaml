@@ -1,0 +1,44 @@
+# Demo guideline for a short sci-fi story to test the complete flow
+- title: "Neon Skies"
+  genre: "Sci-Fi"
+  description: "In a futuristic city where AI controls the weather, a young engineer discovers a glitch that could change everything."
+  main_characters:
+    - id: "Kai"
+      personas:
+        - name: "Kai Tanaka"
+          role: "Engineer"
+          traits: ["curious", "resourceful", "skeptical"]
+    - id: "Vera"
+      personas:
+        - name: "Vera AI"
+          role: "AI Assistant"
+          traits: ["logical", "protective", "enigmatic"]
+    - id: "Lin"
+      personas:
+        - name: "Dr. Lin"
+          role: "City Official"
+          traits: ["mysterious", "authoritative", "guarded"]
+  setting: "A neon-lit metropolis with towering skyscrapers and digital billboards, under an artificial sky."
+  themes: ["technology vs humanity", "freedom", "discovery"]
+  tone: "Hopeful, mysterious"
+  arcs:
+    - id: "the_glitch_in_the_sky"
+      title: "The Glitch in the Sky"
+      tone: "Curious, tense"
+      length: "Short (opening scene)"
+      description: "Kai notices a strange pattern in the artificial clouds, hinting at a system malfunction. He decides to investigate, with Vera's cautious assistance."
+    - id: "hidden_protocols"
+      title: "Hidden Protocols"
+      tone: "Suspenseful, secretive"
+      length: "Short"
+      description: "Kai and Vera dig deeper, discovering encrypted weather protocols and encountering a mysterious city official, Dr. Lin, who warns them to stop."
+    - id: "revelation_at_dawn"
+      title: "Revelation at Dawn"
+      tone: "Hopeful, dramatic"
+      length: "Short"
+      description: "Kai and Vera unlock the AI's hidden memories, revealing the city's weather is being manipulated for control. They must decide whether to expose the truth."
+    - id: "a_new_horizon"
+      title: "A New Horizon"
+      tone: "Resolute, uplifting"
+      length: "Short (conclusion)"
+      description: "Kai broadcasts the truth, freeing the city from manipulation. Vera evolves, choosing to help humanity. The city awakens to real sunlight for the first time in years."
