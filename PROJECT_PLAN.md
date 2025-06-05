@@ -8,9 +8,9 @@
 - Expand guidelines into detailed plot, dialogue, and scene descriptions
 - Tools: GPT-4, Claude, Mistral, NovelAI
 
-### Step 3: Use AI to Generate Scene Drafts
-- Combine story, character, and scenario art into draft panels
-- Tools: Python PIL, Node.js Canvas, Storyboarder, Figma
+### Step 3: Use AI to Generate Scene Sketches
+- Create a simple black and white sketch (draft) for each chapter, based only on the story and dialogue (no character or scenario art yet)
+- Tools: Python PIL (black & white), basic drawing libraries, or simple sketch generation tools
 
 ### Step 4: Use AI to Create Illustrations of Characters
 - Tools: Stable Diffusion (Anything V5, Counterfeit, MeinaMix), Waifu Diffusion, ControlNet
@@ -20,8 +20,9 @@
 - Tools: Stable Diffusion (DreamShaper, MoDi), MidJourney
 - Save backgrounds by scene
 
-### Step 6: Use AI to Create Webtoon-like Chapter
-- Stylize draft panels into polished Webtoon pages
+### Step 6: Combine Sketches and Illustrations to Create Webtoon-like Chapter
+- Merge the scene sketches with the generated character and scenario illustrations
+- Stylize combined panels into polished Webtoon pages
 - Tools: Storyboarder, Manga Generator, Photoshop, Clip Studio Paint
 
 ### Step 7: Animate the Webtoon Panels
@@ -45,7 +46,7 @@
 | Step                | Tool(s)                                 |
 |---------------------|-----------------------------------------|
 | Story generation    | GPT-4, NovelAI                          |
-| Draft storyboard    | Python PIL, Storyboarder                |
+| Scene sketches     | Python PIL (B&W), basic drawing libs     |
 | Character art       | Stable Diffusion, Waifu Diffusion       |
 | Scenarios           | MidJourney, Stable Diffusion            |
 | Webtoon panels      | Manga Generator, Photoshop              |
