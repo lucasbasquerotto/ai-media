@@ -15,29 +15,7 @@ import os
 import sys
 import glob
 from pathlib import Path
-
-def create_sketch(project, chapter_path, output_path):
-    """
-    Create a simple black and white sketch for a chapter using AI.
-
-    Args:
-        chapter_path (str): Path to the chapter text file
-        output_path (str): Path where the sketch image will be saved
-
-    Raises:
-        NotImplementedError: AI sketch generation not yet implemented
-    """
-    # Read chapter content
-    with open(chapter_path, 'r', encoding='utf-8') as f:
-        chapter_content = f.read()
-
-    print('-'*80)
-    print(f"Project: {project}")
-    print(f"Creating sketch for: {chapter_path}")
-    print(f"Output: {output_path}")
-    print(f"Chapter content preview: {chapter_content[:100]}...")
-    print(f">>> NOT IMPLEMENTED YET <<<")
-    print('-'*80)
+import ai
 
 def get_all_chapters(project_path):
     """Get all chapter files in order from the project's arcs directory."""
@@ -68,6 +46,12 @@ def get_sketch_path(project_path, arc_name, chapter_file):
     sketch_name = Path(chapter_file).stem + ".png"
     return os.path.join(sketches_dir, sketch_name)
 
+def get_sketch_tmp_path(project_path, arc_name, chapter_file):
+    """Get the output path for a sketch."""
+    sketches_dir = os.path.join(project_path, "tmp/sketches", arc_name)
+    sketch_name = Path(chapter_file).stem + ".png"
+    return os.path.join(sketches_dir, sketch_name)
+
 def sketch_exists(sketch_path):
     """Check if a sketch already exists."""
     return os.path.exists(sketch_path)
@@ -89,7 +73,7 @@ def main():
     else:
         project_path = os.path.join("projects", project_name)
 
-    project_path = f'../{project_path}'
+    project_path = os.path.join('..', project_path)
 
     if not os.path.exists(project_path):
         print(f"Error: Project path not found at {project_path}")
@@ -107,7 +91,13 @@ def main():
         sketch_path = get_sketch_path(project_path, arc_name, chapter_file)
 
         if not sketch_exists(sketch_path):
-            create_sketch(project_name, chapter_path, sketch_path)
+            tmp_path = get_sketch_tmp_path(project_path, arc_name, chapter_file)
+            ai.create_sketch(
+                project=project_name,
+                project_path=project_path,
+                chapter_path=chapter_path,
+                tmp_path=tmp_path,
+                output_path=sketch_path)
             processed_count += 1
             if not process_all:
                 break

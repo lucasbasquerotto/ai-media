@@ -9,8 +9,8 @@
 - Tools: GPT-4, Claude, Mistral, NovelAI
 
 ### Step 3: Use AI to Generate Scene Sketches
-- Create a simple black and white sketch (draft) for each chapter, based only on the story and dialogue (no character or scenario art yet)
-- Tools: Python PIL (black & white), basic drawing libraries, or simple sketch generation tools
+- Create a simple sketch (draft) for each chapter, based only on the story and dialogue (no character or scenario final art yet)
+- Tools: Python PIL, basic drawing libraries, or simple sketch generation tools
 
 ### Step 4: Use AI to Create Illustrations of Characters
 - Tools: Stable Diffusion (Anything V5, Counterfeit, MeinaMix), Waifu Diffusion, ControlNet
@@ -46,7 +46,7 @@
 | Step                | Tool(s)                                 |
 |---------------------|-----------------------------------------|
 | Story generation    | GPT-4, NovelAI                          |
-| Scene sketches     | Python PIL (B&W), basic drawing libs     |
+| Scene sketches      | Python PIL, basic drawing libs          |
 | Character art       | Stable Diffusion, Waifu Diffusion       |
 | Scenarios           | MidJourney, Stable Diffusion            |
 | Webtoon panels      | Manga Generator, Photoshop              |
