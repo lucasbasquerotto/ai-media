@@ -1,7 +1,7 @@
 import os
 import shutil
-from pathlib import Path
 import requests
+from pathlib import Path
 
 def load_guidelines(project_path: str) -> str:
     """Load project guidelines from YAML file as string."""
@@ -98,7 +98,8 @@ def create_comic_sketch_with_openai(project_path: str, chapter_path: str, tmp_pa
 
     # Add previous sketches information if available
     if previous_sketches:
-        context += f"\n\nNote: This is part of a series. Please maintain visual consistency with previous sketches in the same style and composition approach."
+        context += "\n\nNote: This is part of a series. Please maintain visual consistency " \
+            + "with previous sketches in the same style and composition approach."
 
     # Create prompt for a simple comic sketch
     prompt = f"""Create a simple comic book sketch/storyboard panel based on this story content:
@@ -173,7 +174,7 @@ def create_comic_sketch_with_openai(project_path: str, chapter_path: str, tmp_pa
 
         # Download and save the image to temporary path first
         image_url = response.data[0].url
-        image_response = requests.get(image_url)
+        image_response = requests.get(image_url, timeout=30)
         image_response.raise_for_status()
 
         # Ensure temporary directory exists
@@ -192,21 +193,26 @@ def create_comic_sketch_with_openai(project_path: str, chapter_path: str, tmp_pa
         shutil.move(tmp_path, output_path)
 
         print(f"✅ Sketch moved to final destination: {output_path}")
-
-    except Exception as e:
-        # Clean up temporary file if it exists
-        if os.path.exists(tmp_path):
-            try:
-                os.remove(tmp_path)
-                print(f"🧹 Cleaned up temporary file: {tmp_path}")
-            except:
-                pass
-        print(f"❌ Error creating sketch: {str(e)}")
-        raise
-
     except Exception as e:
         print(f"❌ Error creating sketch: {str(e)}")
         raise
+
+def create_blank_sketch(output_path: str) -> None:
+    """
+    Create a blank sketch image with a white background.
+
+    Args:
+        output_path (str): Path where the blank sketch image will be saved
+    """
+    from PIL import Image
+
+    # Create a blank white image
+    img = Image.new('RGB', (1024, 1024), color='white')
+    output_dir = os.path.dirname(output_path)
+    if not os.path.exists(output_dir):
+        os.makedirs(output_dir)
+    img.save(output_path)
+    print(f"✅ Blank sketch created at: {output_path}")
 
 def create_sketch(
     project: str,
@@ -233,7 +239,13 @@ def create_sketch(
     print(f"Output: {output_path}")
 
     try:
-        create_comic_sketch_with_openai(project_path, chapter_path, tmp_path, output_path)
+        SKETCH_AI = os.getenv('SKETCH_AI', '').lower()
+        if SKETCH_AI == 'void':
+            create_blank_sketch(output_path)
+        elif SKETCH_AI == 'openai':
+            create_comic_sketch_with_openai(project_path, chapter_path, tmp_path, output_path)
+        else:
+            raise ValueError(f"Unknown SKETCH_AI value: {SKETCH_AI}. Expected 'void' or 'openai'.")
     except Exception as e:
         print(f"❌ Failed to create sketch: {str(e)}")
         raise

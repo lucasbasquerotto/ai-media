@@ -15,7 +15,7 @@ import os
 import sys
 import glob
 from pathlib import Path
-import ai
+from src import ai
 
 def get_all_chapters(project_path):
     """Get all chapter files in order from the project's arcs directory."""
@@ -56,24 +56,11 @@ def sketch_exists(sketch_path):
     """Check if a sketch already exists."""
     return os.path.exists(sketch_path)
 
-def main():
-    if len(sys.argv) < 2:
-        print("Usage: python sketch.py <project> [all]")
-        print("Examples:")
-        print("  python sketch.py demo")
-        print("  python sketch.py demo all")
-        sys.exit(1)
-
-    project_name = sys.argv[1]
-    process_all = len(sys.argv) > 2 and sys.argv[2] == "all"
-
-    # Determine project path
-    if project_name == "demo":
-        project_path = "demo"
-    else:
-        project_path = os.path.join("projects", project_name)
-
-    project_path = os.path.join('..', project_path)
+def run():
+    project_name = os.getenv('PROJECT', '')
+    project_path = os.getenv('PROJECT_PATH', '')
+    process_all = os.getenv('SKETCH_ALL', '').lower() == 'true'
+    force = os.getenv('SKETCH_FORCE', '').lower() == 'true'
 
     if not os.path.exists(project_path):
         print(f"Error: Project path not found at {project_path}")
@@ -90,7 +77,7 @@ def main():
     for arc_name, chapter_file, chapter_path in chapters:
         sketch_path = get_sketch_path(project_path, arc_name, chapter_file)
 
-        if not sketch_exists(sketch_path):
+        if (force and process_all) or not sketch_exists(sketch_path):
             tmp_path = get_sketch_tmp_path(project_path, arc_name, chapter_file)
             ai.create_sketch(
                 project=project_name,
@@ -101,13 +88,10 @@ def main():
             processed_count += 1
             if not process_all:
                 break
-        else:
+        elif process_all:
             print(f"Sketch already exists: {sketch_path}")
 
     if processed_count == 0:
         print("No new sketches to create.")
     else:
         print(f"Processed {processed_count} chapter(s).")
-
-if __name__ == "__main__":
-    main()
